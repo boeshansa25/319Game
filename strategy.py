@@ -14,14 +14,15 @@ import random
 
 class Strategy:
 
-    def __init__(self, screen):
+    def __init__(self, screen, game):
         # Strategy Screen Information
         self.width = 1000
         self.height = 800
         self.screen = screen
         self.clock = pygame.time.Clock()
         self.running = True
-
+        self.game = game
+        
         # Initialize buttons
         self.buttons = []
         self.theshold = Button(self.screen, 0, 0, 500, 400, "Thresholds", color="White")
@@ -49,7 +50,9 @@ class Strategy:
         self.q11 = Tri(self.screen, 290, 315)
         self.q12 = Tri(self.screen, 380, 315)
     
-        
+        self.dashbutton = Button(self.screen, self.width-240, self.height-75, 200, 50, "Dashboard", color="Green")
+        self.simbutton = Button(self.screen, self.width-480, self.height-75, 200, 50, "Simulation", color="Green")
+
         """
         self.thv2 = ValueButton(screen, x=275, y=75, width=75, height=75, value=5)
         self.thv3 = ValueButton(screen, x=350, y=75, width=75, height=75, value=5)
@@ -83,7 +86,9 @@ class Strategy:
         self.buttons.append(self.q11)
         self.buttons.append(self.q12)
         self.buttons.append(self.dilemma1)
-        
+        # Screen Navigation
+        self.buttons.append(self.dashbutton)
+        self.buttons.append(self.simbutton)
 
     def draw(self):
         # Draw the buttons
@@ -98,6 +103,13 @@ class Strategy:
     
     def handle_event(self, event):
         for button in self.buttons:
-            if isinstance(button, ValueButton):
+            if isinstance(button, Tri):
                 button.handle_event(event)
-                               
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if button.rect.collidepoint(event.pos):
+                    if button.text == "Dashboard":
+                        self.game.change_screen(self.game.dashboard)
+                    elif button.text == 'Simulation':
+                        self.game.change_screen(self.game.siminterface)
+                                    
+

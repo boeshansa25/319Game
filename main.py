@@ -8,7 +8,9 @@ import sys
 from dashboard import Dashboard
 from strategy import Strategy
 from gameEngine import Game
+from siminterface import SimInterface
 
+"""
 # Initialize the game
 pygame.init()
 
@@ -23,8 +25,10 @@ clock = pygame.time.Clock()
 game = Game(screen)
 dashboard = Dashboard(screen)
 strategy = Strategy(screen)
+siminterface = SimInterface(screen)
 game.set_dashboard(dashboard)
 game.set_strategy(strategy)
+game.set_simulation(siminterface)
 
 # Game loop
 FPS = 60
@@ -53,3 +57,31 @@ while running:
 # Quit the game
 pygame.quit()
 
+
+"""
+
+# Initialize the game
+pygame.init()
+
+# Set up the window
+WIDTH = 1000
+HEIGHT = 800
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Game Manager")
+
+clock = pygame.time.Clock()
+
+game = Game(screen)
+dashboard = Dashboard(screen, game)
+strategy = Strategy(screen, game)
+siminterface = SimInterface(screen, game)
+game.set_dashboard(dashboard)
+game.set_strategy(strategy)
+game.set_simulation(siminterface)
+game.active_screen = dashboard
+
+# Game loop
+game.run()
+
+# Quit the game
+pygame.quit()

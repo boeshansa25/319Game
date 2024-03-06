@@ -10,7 +10,7 @@ from button import Button
 
 class Dashboard:
 
-    def __init__(self, screen):
+    def __init__(self, screen, game):
         # Dashboard Information
         self.width = 1000
         self.height = 800
@@ -18,6 +18,7 @@ class Dashboard:
         self.clock = pygame.time.Clock()
         self.running = True
         self.font = pygame.font.Font(None, 36)
+        self.game = game
 
         # Initialize buttons
         self.buttons = []

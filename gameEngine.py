@@ -4,18 +4,22 @@ User to go back and forth between different screens in the game"""
 import pygame
 
 class Game:
-    def __init__(self, screen, dashboard=None, strategy=None):
+    def __init__(self, screen, dashboard=None, strategy=None, simulation=None):
         self.running = True
-        self.active_screen = 'dashboard'
+        self.active_screen = dashboard
         self.screen = screen
         self.dashboard = dashboard
         self.strategy = strategy
+        self.siminterface = simulation
 
     def set_dashboard(self, dashboard):
         self.dashboard = dashboard
     
     def set_strategy(self, strategy):
         self.strategy = strategy
+    
+    def set_simulation(self, simulation):
+        self.simulation = simulation
 
 
     def run(self):
@@ -24,11 +28,13 @@ class Game:
                 if event.type == pygame.QUIT:
                     self.running = False
                 else:
-                    self.active_screen.handle_event(event)
+                    if self.active_screen is not None:
+                        self.active_screen.handle_event(event)
 
             # Draw
             self.screen.fill((255, 255, 255))
-            self.active_screen.draw()
+            if self.active_screen is not None:
+                self.active_screen.draw()
 
             pygame.display.flip()
 

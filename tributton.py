@@ -25,6 +25,7 @@ class Tri:
         self.border_width = 3
         # Max Value
         self.max_value = 10
+        self.text=None
 
     def draw(self):
         # Change the color based on the total value
