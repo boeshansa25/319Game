@@ -19,7 +19,7 @@ class Game:
         self.strategy = strategy
     
     def set_simulation(self, simulation):
-        self.simulation = simulation
+        self.siminterface = simulation
 
 
     def run(self):
